@@ -1,0 +1,9 @@
+!Reacts jegyzet!
+
+Kotelezo componensek:
+Alerts
+Buttons
+!Cards!
+Carousel
+Modals
+Navbar
