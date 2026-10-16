@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import type { Champ } from "./types/Champ";
 import { Button, Card, Col, Row } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 function App() {
   const [AllChamp, setAllChamp] = useState<Array<Champ>>([]);
@@ -31,15 +32,21 @@ function App() {
 
   const deleteCard = (nameToDelete: string) => {
     setAllChamp((e) => e.filter((c) => c.name !== nameToDelete));
+    toast.error("Deleted successfully!", { position: "top-center" });
   };
 
   const submit = () => {
+    if (!name || !role || !cost) {
+      toast.warning("Fill out the missing data!");
+      return;
+    }
     const newChamp: Champ = {
       name,
       role,
       cost,
     };
     setAllChamp([...AllChamp, newChamp]);
+    toast.success("Added successfully!");
   };
 
   return (
