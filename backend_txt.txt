@@ -1,0 +1,10 @@
+/register -> 
+post -
+ha sikeres a regisztracio: 201
+Ha uresen hagyjuk a kotelezo mezoket: 400
+Ha mar van ezzel az emaillel regisztralt fiok: 409
+/login -> 
+get - 
+Sikeres bejelentekezes : 200 
+Ures mezo: 400
+Nincs ilyen fiok = hibas adat: 404 - 
