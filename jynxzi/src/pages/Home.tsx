@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import type { Champ } from "../types/Champ";
 import apiClient, { BACKEND_URL } from "../api/apiClient";
-import { Card, Carousel, Row } from "react-bootstrap";
+import { Button, Card, Carousel, Row } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 const Home = () => {
   const [champs, setChamps] = useState<Array<Champ>>([]);
@@ -12,6 +13,16 @@ const Home = () => {
       .then((res) => setChamps(res.data))
       .catch((err) => console.log(err.message));
   }, []);
+
+  const delButton = (c: Champ) => {
+    apiClient
+      .delete(`/champions/${c.id}`)
+      .then(() => {
+        setChamps((prev) => prev.filter((e) => e.id !== c.id));
+        toast.error(`${c.name} deleted!`);
+      })
+      .catch((err) => alert(err.message));
+  };
 
   const generateCard = (c: Champ) => {
     return (
@@ -37,6 +48,11 @@ const Home = () => {
             <Card.Text>Damage type: {c.damage_type}</Card.Text>
             <Card.Footer>Blue essence cost: {c.blue_essence}</Card.Footer>
           </Card.Body>
+          <Card.Footer>
+            <Button variant="danger" onClick={() => delButton(c)}>
+              Delete
+            </Button>
+          </Card.Footer>
         </Card>
       </>
     );
